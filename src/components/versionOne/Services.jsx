@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import OwlCarousel from "react-owl-carousel3";
 import i from "react-icofont";
 import PropTypes from "prop-types";
 
