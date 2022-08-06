@@ -52,10 +52,10 @@ const App = () => {
                                         <Route exact path="/">
                                             <HomeOne />
                                         </Route>
-                                        <Route exact path="/home">
+                                        {/* <Route  path="/home">
                                             <HomeOne />
-                                        </Route>
-                                        <Route exact path="/login">
+                                        </Route> */}
+                                        <Route  path="/login">
                                             <Login />
                                         </Route>
                                         </Switch>

@@ -32,7 +32,7 @@ const Footer = (props) => {
                             </div>
                             <div className={`col-8 col-sm-10 col-lg-10 col-md-10 text-center`}>
                                 <div onClick={() => { onClickMenu(2) }}>
-                                    <NavLink to="/home" activeStyle={{
+                                    <NavLink to="/" activeStyle={{
                                         color: "green"
                                     }}>
                                         <i className="icofont-home icofont-2x"></i>
