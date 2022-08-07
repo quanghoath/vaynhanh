@@ -52,9 +52,9 @@ const App = () => {
                                         <Route exact path="/">
                                             <HomeOne />
                                         </Route>
-                                        {/* <Route  path="/home">
+                                        <Route  path="/home">
                                             <HomeOne />
-                                        </Route> */}
+                                        </Route>
                                         <Route  path="/login">
                                             <Login />
                                         </Route>

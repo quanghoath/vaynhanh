@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import i from "react-icofont";
 import PropTypes from "prop-types";
 

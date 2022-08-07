@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 //Components List
-import NavBarMultiPage from "../components/common/NavBarMultiPage";
 import Showcase from "../components/versionOne/Showcase";
 import Features from "../components/versionOne/Features";
 import ThongKe from "../components/versionOne/ThongKe";

@@ -24,47 +24,47 @@ const Features = (props) => {
                     {/* <div className="row">{featuredata}</div> */}
                     <div className="row">
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 1 ? "bg-success" : "bg-primary"} mr-1`}
+                         ${index === 1 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
                             onClick={() => onClickChange(1)}
                         >
                             3 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 2 ? "bg-success" : "bg-primary"} mr-1`}
+                         ${index === 2 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }} onClick={() => onClickChange(2)}>
                             6 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 3 ? "bg-success" : "bg-primary"} mr-1`}
+                         ${index === 3 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
                             onClick={() => onClickChange(3)}
                         >
                             12 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 4 ? "bg-success" : "bg-primary"} mr-1`}
+                         ${index === 4 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
                             onClick={() => onClickChange(4)}
                         >
                             18 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 5 ? "bg-success" : "bg-primary"} mr-1`}
+                         ${index === 5 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
                             onClick={() => onClickChange(5)}
                         >
                             24 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 6 ? "bg-success" : "bg-primary"} mr-1`}
+                         ${index === 6 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
                             onClick={() => onClickChange(6)}
                         >
                             36 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 7 ? "bg-success" : "bg-primary"}`}
+                         ${index === 7 ? "bg-success" : "bg-primary"} pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
                             onClick={() => onClickChange(7)}
                         >

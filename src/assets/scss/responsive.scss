@@ -9,11 +9,14 @@ $value_five: 1199px;
 $value_six: 1550px;
 
 @media only #{$media} and ($feature_max : $value_one) {
+	.about-img{
+		display: none;
+	}
 	.item-quy-trinh{
 		min-height: 50px !important;
 	}
 	.item-month-features{
-		font-size:12px;
+		font-size:8px;
 		font-weight: 500 !important;
 	}
 	h3 ,.h3{

@@ -1,23 +1,7 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 const Footer = (props) => {
-    //Support loop END
-    const [index, setIndex] = useState(2);
-    const onClickMenu = (value) => {
-        // setIndex(value);
-        // switch (value) {
-        //     case 2:
-        //         history.push("/");
-        //         break;
-        //     case 3:
-        //         history.push("/contact");
-        //         break;
-        //     default:
-        //         history.push("/");
-        //         break;
-        // }
-    }
     return (
         <React.Fragment>
             <footer className="footer-area" style={{ boxShadow: "0px 5px 10px gray, 0px -5px 10px gray" }}>
@@ -26,30 +10,26 @@ const Footer = (props) => {
                         <div className="row">
                             <div className="col-2 col-sm-1 col-lg-1 col-md-1 text-center" >
                                 <a href="https://zalo.me/0908676629" target="_blank">
-                                    <i className="icofont-headphone-alt-2 icofont-2x"></i>
+                                    <i className="icofont-headphone-alt-2 icofont"></i>
                                     <p>CSKH</p>
                                 </a>
                             </div>
                             <div className={`col-8 col-sm-10 col-lg-10 col-md-10 text-center`}>
-                                <div onClick={() => { onClickMenu(2) }}>
-                                    <NavLink to="/" activeStyle={{
-                                        color: "green"
-                                    }}>
-                                        <i className="icofont-home icofont-2x"></i>
-                                        <p>Trang chủ</p> </NavLink>
-                                </div>
+                                <NavLink to="/home" activeStyle={{
+                                    color: "green"
+                                }}>
+                                    <i className="icofont-home icofontx"></i>
+                                    <p>Trang chủ</p> </NavLink>
                             </div>
                             <div className={`col-2 col-sm-1 col-lg-1 col-md-1 text-center`}>
-                                <div onClick={() => { onClickMenu(3) }}>
-                                    <NavLink to="/login"
-                                        activeStyle={{
-                                            color: "green"
-                                        }}
-                                    >
-                                        <i className="icofont-user-alt-3 icofont-2x"></i>
-                                        <p>Tôi</p>
-                                    </NavLink>
-                                </div>
+                                <NavLink to="/login"
+                                    activeStyle={{
+                                        color: "green"
+                                    }}
+                                >
+                                    <i className="icofont-user-alt-3 icofont"></i>
+                                    <p>Tôi</p>
+                                </NavLink>
                             </div>
                         </div>
                     </div>
