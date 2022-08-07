@@ -100,7 +100,7 @@ const Login = (props) => {
                     </div>
 
                     <div className="row">
-                        <div className="col-lg-6 col-md-12 shadow-lg">
+                        <div className="col-lg-6 col-md-12 shadow-lg pb-5">
                             <ul className="nav nav-pills nav-fill " style={{ paddingLeft: "-15px" }}>
                                 <li className="nav-item shadow-sm " onClick={() => onChangeType(true)} style={{cursor: "pointer" }} >
                                     <p className={`nav-link ${login ? "active" : ""}`} ><i className="icofont-login"></i> Đăng nhập</p>
