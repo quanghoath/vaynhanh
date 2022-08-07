@@ -26,7 +26,10 @@ const Services =(props)=> {
                                     <span style={{ fontSize: "30px !important" }}>
                                         <i className="icofont-phone-circle pl-3 pr-3" style={{ fontSize: "30px !important" }}></i>
                                         </span>
-                                    <span onClick={() => window.open('tel:1800088875')}>1800088875</span>
+                                    {/* onClick={() => window.open('tel:1800088875')} */}
+                                    <span >
+                                        <a href="tel://1800088875">1800088875</a>
+                                    </span>
                                 </h3>
 
                             </div>
