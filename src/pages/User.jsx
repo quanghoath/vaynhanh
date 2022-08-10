@@ -2,15 +2,21 @@ import React, { useState, useEffect } from "react";
 import Login from './Login'
 import UserDetail from "./UserDetail";
 const User = (props) => {
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
+    const [user,setUser] = useState([]);
     useEffect(() => {
-        let user = localStorage.getItem("user");
+        let user = JSON.parse(localStorage.getItem('user'));
         if (user) {
+            setUser(user);
             setIsLogin(true);
         }
     }, [])
     const onSubmitLogin = () => {
         setIsLogin(true);
+    }
+    const logout = ()=>{
+        setIsLogin(false);
+        localStorage.removeItem("user");
     }
     return (
         <React.Fragment>
@@ -19,7 +25,6 @@ const User = (props) => {
                 <div className="container">
                     <div className="section-title">
                         {isLogin ? <span>Thông tin tài khoản</span> : <span>Đăng ký/ Đăng nhập</span>}
-                        <span>Đăng ký/ Đăng nhập</span>
                         {/* <h3>Vui lòng đăng ký/ đăng nhập để được vay ngay lập tức</h3> */}
                         <p>
                             Lotte Finance cho vay tiền mặt. Không thế chấp tài sản, 18 tuổi vẫn vay được và miễn thẩm định nhà.
@@ -28,17 +33,16 @@ const User = (props) => {
                     {isLogin ?
                         <div className="d-flex justify-content-between align-items-center">
                             <div>
-                                Xin chảo: Nguyễn Hòa
+                                Xin chào: {user.phone}
                             </div>
-                            <button type="button" class="btn btn-danger">Đăng xuất</button>
+                            <button type="button" class="btn btn-danger" onClick={()=>logout()}>Đăng xuất</button>
                         </div>
                         : ""
                     }
 
                     <div className="row">
-                        {isLogin ? <UserDetail />
-                            :
-                            <Login onSubmitLogin={() => onSubmitLogin()} />
+                        {!isLogin ? <Login onSubmitLogin={() => onSubmitLogin()} />
+                            : user.isAdmin === true ? <UserDetail /> : ""
                         }
                         <div className="col-lg-6 col-md-12">
                             <div className="about-img">

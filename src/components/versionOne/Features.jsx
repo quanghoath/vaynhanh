@@ -2,34 +2,41 @@ import React, { useState, useEffect } from "react";
 import i from "react-icofont";
 import PropTypes from "prop-types";
 import { axiosPost } from "../../axiosClient";
-
+import toast from 'react-hot-toast';
+// import { v4 as uuid } from 'uuid';
 const Features = (props) => {
-    const [index, setIndex] = useState(1);
-    const [money, setMoney] = useState(40000000);
+    const [index, setIndex] = useState(6);
+    const [money, setMoney] = useState(20000000);
     const [tienHangThang, setTienHangThang] = useState(0);
+    const [loading,setLoading] = useState(false);
     //Features loop END
     const onClickChange = (value) => {
         setIndex(value);
     }
     useEffect(() => {
-        let tien = Number(money) * 0.85 / 100 + Number(money) / index
+        let tien = (Number(money) * 0.85 / 100) + (Number(money) / index)
         setTienHangThang(tien);
     }, [index, money])
-    const submit = ()=>{
-        let check = localStorage.getItem("user");
-        if(check) {
-            axiosPost("/Order",{
-                phone:"1",
-                name:"1",
-                createAt: new Date(),
-                idUser: "1",
+    const submit =async ()=>{
+        setLoading(true);
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+           let res = await  axiosPost("/Order",{
+                phone: user.phone,
+                name: user.name,
+               createdAt: new Date(),
+                idUser: user.id,
                 soTien: money,
-                soThang: index,
+                soThang: index
+            //    id: unique_id
             })
+            toast.success('Đăng ký vay thành công!')
         }
         else{
-            
+            debugger
+            toast.error('Vui lòng đăng nhập!')
         }
+        setLoading(false);
     }
     return (
         <React.Fragment>
@@ -102,17 +109,17 @@ const Features = (props) => {
                         <div className="col-sm-12">
                             <div className="row">
                                 <div className="col-2 col-sm-1  text-right "
-                                    onClick={() => { setMoney((Number(money) - 2000000) < 40000000 ? 40000000 : (Number(money) - 2000000)) }}>
+                                    onClick={() => { setMoney((Number(money) - 2000000) < 20000000 ? 20000000 : (Number(money) - 2000000)) }}>
                                     <i className="icofont-minus-circle h3" style={{ cursor: "pointer" }} />
                                 </div>
                                 <div className="col-8 col-sm-10 pt-1">
                                     <input type="range" className="form-control-range slider" id="formControlRange"
-                                        min="40000000" max="2000000000" step="1000000" value={money}
+                                        min="20000000" max="500000000" step="1000000" value={money}
                                         onChange={(e) => { setMoney(e.target.value) }}
                                     />
                                 </div>
                                 <div className="col-2 col-sm-1 text-left"
-                                    onClick={() => { setMoney((Number(money) + 2000000) > 2000000000 ? 2000000000 : (Number(money) + 2000000)) }}>
+                                    onClick={() => { setMoney((Number(money) + 2000000) > 500000000 ? 500000000 : (Number(money) + 2000000)) }}>
                                     <i className="icofont-plus-circle h3" style={{ cursor: "pointer" }} />
                                 </div>
                             </div>
@@ -124,7 +131,9 @@ const Features = (props) => {
                         </div>
                     </div>
                     <div className="col-sm-12 text-center mt-3">
-                        <button type="button" className="btn btn-success font-weight-bold" onClick={()=>submit()}>Nộp đơn ngay lập tức</button>
+                        <button type="button" className="btn btn-success font-weight-bold" 
+                        disabled = {loading ? true : false}
+                        onClick={()=>submit()}>Nộp đơn ngay lập tức</button>
                     </div>
                 </div>
             </section>

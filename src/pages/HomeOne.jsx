@@ -6,23 +6,12 @@ import Features from "../components/versionOne/Features";
 import ThongKe from "../components/versionOne/ThongKe";
 import Services from "../components/versionOne/Services";
 import QuyTrinh from "../components/versionOne/QuyTrinh";
-import { axiosGet } from "../axiosClient";
 // import Footer from "../components/versionOne/Footer";
 
 const HomeOne = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     })
-    useEffect( () => {
-        
-        axiosGet("/user").then(res=>{
-            console.log(res);
-
-        })
-    },[])
-    // componentDidMount() {
-
-    // }
 
     return (
         <React.Fragment>

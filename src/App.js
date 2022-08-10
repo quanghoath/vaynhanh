@@ -12,14 +12,13 @@ import "./assets/scss/responsive.scss";
 
 //Component Import
 import HomeOne from "./pages/HomeOne";
-// import ContactUS from "./pages/ContactUs";
-import Login from './pages/Login';
 import User from './pages/User'
 import Footer from './components/versionOne/Footer'
 import ScrollUpBtn from "./components/common/ScrollUpBtn";
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { Route, Switch } from "react-router-dom";
+import { Toaster } from 'react-hot-toast';
 const App = () => {
     React.useEffect(() => {
         window.scrollTo(0,0)
@@ -28,6 +27,7 @@ const App = () => {
     return (
         <div className="App">
             <div>
+                <div><Toaster /></div>
                 <Footer  />
                 {/* <Switch>
                     <Route exact path="/">

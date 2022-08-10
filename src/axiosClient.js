@@ -8,3 +8,6 @@ export const axiosGet = (url)=>{
 export const axiosPost = (url,data)=>{
     return axios.post(BASE_URL + url,data).then(res=> res.data);
 }
+export const axiosDelete = (url) => {
+    return axios.delete(BASE_URL + url).then(res => res.data);
+}

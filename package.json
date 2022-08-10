@@ -23,7 +23,8 @@
         "react-scripts": "^3.4.4",
         "react-scroll-up-button": "^1.6.4",
         "react-transition-group": "^2.9.0",
-        "serve": "^14.0.1"
+        "serve": "^14.0.1",
+        "uuidv4": "^6.2.13"
     },
     "engines": {
         "node": "14.17.2",

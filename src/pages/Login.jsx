@@ -2,7 +2,8 @@ import React, { useState } from "react";
 // import i from "react-icofont";
 import PropTypes from "prop-types";
 import { axiosPost, axiosGet } from '../axiosClient';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
+// import { v4 as uuid } from 'uuid';
 const Login = (props) => {
     const {onSubmitLogin} = props;
     const [login, setLogin] = useState(true);
@@ -48,7 +49,7 @@ const Login = (props) => {
         let res = await axiosGet(`/user?phone=${data.phone}`);
         if (res.length > 0) {
             if (res[0].password === data.password) {
-                localStorage.setItem("user", res[0]);
+                localStorage.setItem("user", JSON.stringify(res[0]));
                 setErr("");
                 setValid({ phone: "", password: "" });
                 onSubmitLogin();
@@ -103,18 +104,21 @@ const Login = (props) => {
         }
         let res = await axiosGet(`/user?phone=${data.phone}`);
         if (res.length > 0) {
-            setErr("Số điện thoại đã được đăng ký trước đó!");
+            toast.error("Số điện thoại đã được đăng ký trước đó!")
+            // setErr("Số điện thoại đã được đăng ký trước đó!");
         }
         else {
+            // const unique_id = uuid();
             let regis = await axiosPost("/user", {
                 phone: data.phone,
                 password: data.password,
                 name: data.phone,
-                createAt: new Date()
+                createdAt: new Date()
+                // id: unique_id
             });
             if(regis){
                 setLogin(true);
-                setErr("");
+                // setErr("");
                 setValid({ phone: "", password: "" });
 
             }
