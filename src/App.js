@@ -6,7 +6,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "animate.css/animate.min.css";
-import 'react-toastify/dist/ReactToastify.css';
 //Template SCSS Style
 import "./assets/scss/style.scss";
 import "./assets/scss/responsive.scss";
