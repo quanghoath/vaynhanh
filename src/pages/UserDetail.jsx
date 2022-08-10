@@ -4,21 +4,21 @@ import { axiosDelete, axiosGet } from '../axiosClient';
 import toast from 'react-hot-toast';
 const UserDetail = (props) => {
     const [data, setData] = useState([]);
-    const [loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         axiosGet("/Order").then(res => {
             setData(res);
         });
     }, [])
-    const deleteOrder =async (value)=>{
+    const deleteOrder = async (value) => {
         setLoading(true);
-       let res = await axiosDelete("/Order/" + value.id)
+        let res = await axiosDelete("/Order/" + value.id)
         if (res) {
-           let resGet = await axiosGet("/Order");
-           if(resGet){
-               setData(res);
-               toast.success('Xóa đơn hàng thành công')
-           }
+            let resGet = await axiosGet("/Order");
+            if (resGet) {
+                setData(resGet);
+                toast.success('Xóa đơn hàng thành công')
+            }
         }
         setLoading(false);
     }
@@ -50,11 +50,11 @@ const UserDetail = (props) => {
                                     {new Date(item.createdAt).getDate()}  - {new Date(item.createdAt).getMonth() + 1} - {new Date(item.createdAt).getFullYear()}
                                 </td>
                                 <td>
-                                    
+
                                     <button type="button" class="btn btn-danger pt-1 pb-1"
                                         disabled={loading ? true : false}
-                                    onClick={() => deleteOrder(item)}>Xóa</button>
-                                    
+                                        onClick={() => deleteOrder(item)}>Xóa</button>
+
                                 </td>
                             </tr>
                         })}

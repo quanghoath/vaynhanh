@@ -117,6 +117,7 @@ const Login = (props) => {
                 // id: unique_id
             });
             if(regis){
+                toast.success('Đăng ký thành công!')
                 setLogin(true);
                 // setErr("");
                 setValid({ phone: "", password: "" });
