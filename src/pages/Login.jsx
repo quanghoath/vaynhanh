@@ -1,14 +1,128 @@
 import React, { useState } from "react";
 // import i from "react-icofont";
 import PropTypes from "prop-types";
-
+import { axiosPost, axiosGet } from '../axiosClient';
+import toast, { Toaster } from 'react-hot-toast';
 const Login = (props) => {
+    const {onSubmitLogin} = props;
     const [login, setLogin] = useState(true);
+    const [data, setData] = useState({});
+    const [err, setErr] = useState("");
+    const [valid, setValid] = useState({});
+    const [loading, setLoading] = useState(false);
     const onChangeType = (v) => {
+        setErr("");
+        setValid({ phone: "", password: "" });
         setLogin(v);
     }
-    const renderForm = ()=>{
-        if(login === true){
+    const appleChange = (type, value) => {
+        let newData = Object.create(data);
+        newData[type] = value;
+        setData(newData);
+    }
+    const validate = () => {
+        let newValid = Object.create(valid);
+        if (typeof data.phone === "undefined" || data.phone?.length !== 10) {
+            newValid["phone"] = "Số điện thoại không được để trống";
+            if (data.phone?.length !== 10) {
+                newValid["phone"] = "Số điện thoại không đúng 10 số";
+            }
+            setValid(newValid);
+            return false;
+        }
+        if (typeof data.password === "undefined" || data.password?.length === 0) {
+            newValid["password"] = "Mật khẩu không được để trống";
+            setValid({ ...newValid, phone: "" });
+            return false;
+        }
+        setValid({ phone: "", password: "" });
+        return true;
+    }
+    const onSubmit = async () => {
+        setLoading(true);
+        let validation = validate();
+        if (validation === false) {
+            setLoading(false);
+            return;
+        }
+        let res = await axiosGet(`/user?phone=${data.phone}`);
+        if (res.length > 0) {
+            if (res[0].password === data.password) {
+                localStorage.setItem("user", res[0]);
+                setErr("");
+                setValid({ phone: "", password: "" });
+                onSubmitLogin();
+                toast.success('Đăng nhập thành công!')
+            }
+            else {
+                toast.error("Mật khẩu không đúng!")
+                // setErr("Mật khẩu không đúng!")
+            }
+        }
+        else {
+            toast.error("Số điện thoại chưa được đăng ký!")
+            // setErr("Số điện thoại chưa được đăng ký!")
+        }
+        setLoading(false);
+    }
+
+    const validateRegister = () => {
+        let newValid = Object.create(valid);
+        if (typeof data.phone === "undefined" || data.phone?.length !== 10) {
+            newValid["phone"] = "Số điện thoại không được để trống";
+            if (data.phone?.length !== 10) {
+                newValid["phone"] = "Số điện thoại không đủ 10 số";
+            }
+            setValid(newValid);
+            return false;
+        }
+        if (typeof data.password === "undefined" || data.password?.length === 0) {
+            newValid["password"] = "Mật khẩu không được để trống";
+            setValid({ ...newValid, phone: "" });
+            return false;
+        }
+        if (typeof data.repassword === "undefined" || data.repassword?.length === 0) {
+            newValid["repassword"] = "Mật khẩu nhập lại không được để trống";
+            setValid({ ...newValid, phone: "" });
+            return false;
+        }
+        if (data.repassword !== data.password) {
+            newValid["repassword"] = "Mật khẩu không khớp";
+            setValid({ ...newValid, phone: "" });
+            return false;
+        }
+        setValid({ phone: "", password: "" });
+        return true;
+    }
+    const onSubmitRegister = async () => {
+        setLoading(true);
+        let validation = validateRegister();
+        if (validation === false) {
+            setLoading(false);
+            return;
+        }
+        let res = await axiosGet(`/user?phone=${data.phone}`);
+        if (res.length > 0) {
+            setErr("Số điện thoại đã được đăng ký trước đó!");
+        }
+        else {
+            let regis = await axiosPost("/user", {
+                phone: data.phone,
+                password: data.password,
+                name: data.phone,
+                createAt: new Date()
+            });
+            if(regis){
+                setLogin(true);
+                setErr("");
+                setValid({ phone: "", password: "" });
+
+            }
+        }
+        setLoading(false);
+    }
+    const renderForm = () => {
+        if (login === true) {
             return (
                 <div className="text-center pt-5">
                     <p className="">Đăng nhập thành viên</p>
@@ -18,10 +132,12 @@ const Login = (props) => {
                         </div>
                         <input type="text" className="form-control" required style={{ border: "1px solid" }}
                             placeholder="Nhập số điện thoại"
+                            onChange={(e) => appleChange("phone", e.target.value)}
                         />
-                        <div className="invalid-feedback">
-                            Please choose a username.
-                        </div>
+
+                    </div>
+                    <div className="text-left text-danger">
+                        {valid.phone?.length > 0 ? valid.phone : ""}
                     </div>
                     <div className="input-group has-validation pt-3">
                         <div className="input-group-prepend">
@@ -29,18 +145,26 @@ const Login = (props) => {
                                 <i className="icofont-lock"></i>
                             </span>
                         </div>
-                        <input type="text" className="form-control" required style={{ border: "1px solid" }}
+                        <input type="password" className="form-control" required style={{ border: "1px solid" }}
                             placeholder="Nhập mật khẩu"
+                            onChange={(e) => appleChange("password", e.target.value)}
                         />
-                        <div className="invalid-feedback">
-                            Please choose a username.
-                        </div>
                     </div>
-                    <button type="button" className="btn btn-primary mt-3">Đăng nhập thành viên</button>
+                    <div className="text-left text-danger">
+                        {valid.password?.length > 0 ? valid.password : ""}
+                    </div>
+                    <div className="col-12 col-sm-12">
+
+                        <button type="button" className="btn btn-primary mt-3" onClick={() => onSubmit()}>
+                            {loading ? <i className="icofont-spinner-alt-6"></i> :
+                                "Đăng nhập thành viên"
+                            }
+                        </button>
+                    </div>
                 </div>
             )
         }
-        else{
+        else {
             return (
                 <div className="text-center pt-5">
                     <p className="">Đăng ký thành viên</p>
@@ -50,10 +174,11 @@ const Login = (props) => {
                         </div>
                         <input type="text" className="form-control" required style={{ border: "1px solid" }}
                             placeholder="Nhập số điện thoại"
+                            onChange={(e) => appleChange("phone", e.target.value)}
                         />
-                        <div className="invalid-feedback">
-                            Please choose a username.
-                        </div>
+                    </div>
+                    <div className="text-left text-danger">
+                        {valid.phone?.length > 0 ? valid.phone : ""}
                     </div>
                     <div className="input-group has-validation pt-3">
                         <div className="input-group-prepend">
@@ -61,12 +186,13 @@ const Login = (props) => {
                                 <i className="icofont-lock"></i>
                             </span>
                         </div>
-                        <input type="text" className="form-control" required style={{ border: "1px solid" }}
+                        <input type="password" className="form-control" required style={{ border: "1px solid" }}
                             placeholder="Nhập mật khẩu"
+                            onChange={(e) => appleChange("password", e.target.value)}
                         />
-                        <div className="invalid-feedback">
-                            Please choose a username.
-                        </div>
+                    </div>
+                    <div className="text-left text-danger">
+                        {valid.password?.length > 0 ? valid.password : ""}
                     </div>
                     <div className="input-group has-validation pt-3">
                         <div className="input-group-prepend">
@@ -74,56 +200,39 @@ const Login = (props) => {
                                 <i className="icofont-lock"></i>
                             </span>
                         </div>
-                        <input type="text" className="form-control" required style={{ border: "1px solid" }}
+                        <input type="password" className="form-control" required style={{ border: "1px solid" }}
                             placeholder="Nhập lại mật khẩu"
+                            onChange={(e) => appleChange("repassword", e.target.value)}
                         />
-                        <div className="invalid-feedback">
-                            Please choose a username.
-                        </div>
                     </div>
-                    <button type="button" className="btn btn-primary mt-3">Đăng ký thành viên</button>
+                    <div className="text-left text-danger">
+                        {valid.repassword?.length > 0 ? valid.repassword : ""}
+                    </div>
+                    <button type="button" className="btn btn-primary mt-3" onClick={() => onSubmitRegister()}>
+                        {loading ? <i className="icofont-spinner-alt-6"></i> :
+                            " Đăng ký thành viên"
+                        }
+                    </button>
                 </div>
             )
         }
     }
     return (
         <React.Fragment>
-            {/* Start About Area */}
-            <section id="about" className="about-area ptb-100">
-                <div className="container">
-                    <div className="section-title">
-                        <span>Đăng ký/ Đăng nhập</span>
-                        {/* <h3>Vui lòng đăng ký/ đăng nhập để được vay ngay lập tức</h3> */}
-                        <p>
-                            Lotte Finance cho vay tiền mặt. Không thế chấp tài sản, 18 tuổi vẫn vay được và miễn thẩm định nhà.
-                        </p>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-lg-6 col-md-12 shadow-lg pb-5">
-                            <ul className="nav nav-pills nav-fill " style={{ paddingLeft: "-15px" }}>
-                                <li className="nav-item shadow-sm " onClick={() => onChangeType(true)} style={{cursor: "pointer" }} >
-                                    <p className={`nav-link ${login ? "active" : ""}`} ><i className="icofont-login"></i> Đăng nhập</p>
-                                </li>
-                                <li className="nav-item shadow-sm " style={{ cursor: "pointer" }} onClick={() => onChangeType(false)} >
-                                    <p className={`nav-link ${!login ? "active" : ""}`}><i className="icofont-logout"></i>  Đăng ký</p>
-                                </li>
-                            </ul>
-                            { renderForm()}
-                           
-                        </div>
-                        <div className="col-lg-6 col-md-12">
-                            <div className="about-img">
-                                <img
-                                    src={props.aboutImage}
-                                    alt="about"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {/* End About Area */}
+            <div className="col-lg-6 col-md-12 shadow-lg pb-5">
+                <ul className="nav nav-pills nav-fill " style={{ paddingLeft: "-15px" }}>
+                    <li className="nav-item shadow-sm " onClick={() => onChangeType(true)} style={{ cursor: "pointer" }} >
+                        <p className={`nav-link ${login ? "active" : ""}`} ><i className="icofont-login"></i> Đăng nhập</p>
+                    </li>
+                    <li className="nav-item shadow-sm " style={{ cursor: "pointer" }} onClick={() => onChangeType(false)} >
+                        <p className={`nav-link ${!login ? "active" : ""}`}><i className="icofont-logout"></i>  Đăng ký</p>
+                    </li>
+                </ul>
+                {renderForm()}
+                {err && err.length > 0 ?
+                    (<p className="pt-3 text-danger">{err}</p>) : ""
+                }
+            </div>
         </React.Fragment>
     );
 

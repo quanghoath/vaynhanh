@@ -1,13 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import i from "react-icofont";
 import PropTypes from "prop-types";
+import { axiosPost } from "../../axiosClient";
 
 const Features = (props) => {
     const [index, setIndex] = useState(1);
     const [money, setMoney] = useState(40000000);
+    const [tienHangThang, setTienHangThang] = useState(0);
     //Features loop END
     const onClickChange = (value) => {
         setIndex(value);
+    }
+    useEffect(() => {
+        let tien = Number(money) * 0.85 / 100 + Number(money) / index
+        setTienHangThang(tien);
+    }, [index, money])
+    const submit = ()=>{
+        let check = localStorage.getItem("user");
+        if(check) {
+            axiosPost("/Order",{
+                phone:"1",
+                name:"1",
+                createAt: new Date(),
+                idUser: "1",
+                soTien: money,
+                soThang: index,
+            })
+        }
+        else{
+            
+        }
     }
     return (
         <React.Fragment>
@@ -23,50 +45,50 @@ const Features = (props) => {
                     </div>
                     {/* <div className="row">{featuredata}</div> */}
                     <div className="row">
-                        <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
+                        {/* <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
                          ${index === 1 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
                             onClick={() => onClickChange(1)}
                         >
                             3 tháng
-                        </div>
+                        </div> */}
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 2 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
-                            style={{ cursor: "pointer" }} onClick={() => onClickChange(2)}>
+                         ${index === 6 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
+                            style={{ cursor: "pointer" }} onClick={() => onClickChange(6)}>
                             6 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 3 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
+                         ${index === 12 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
-                            onClick={() => onClickChange(3)}
+                            onClick={() => onClickChange(12)}
                         >
                             12 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 4 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
+                         ${index === 18 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
-                            onClick={() => onClickChange(4)}
+                            onClick={() => onClickChange(18)}
                         >
                             18 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 5 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
+                         ${index === 24 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
-                            onClick={() => onClickChange(5)}
+                            onClick={() => onClickChange(24)}
                         >
                             24 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 6 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
+                         ${index === 36 ? "bg-success" : "bg-primary"} mr-1 pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
-                            onClick={() => onClickChange(6)}
+                            onClick={() => onClickChange(36)}
                         >
                             36 tháng
                         </div>
                         <div className={`col col-sm rounded-top text-light font-weight-bold text-center pt-3 pb-3 item-month-features
-                         ${index === 7 ? "bg-success" : "bg-primary"} pl-1 pr-1`}
+                         ${index === 48 ? "bg-success" : "bg-primary"} pl-1 pr-1`}
                             style={{ cursor: "pointer" }}
-                            onClick={() => onClickChange(7)}
+                            onClick={() => onClickChange(48)}
                         >
                             48 tháng
                         </div>
@@ -96,11 +118,13 @@ const Features = (props) => {
                             </div>
                         </div>
                         <div className="col-sm-12  text-center mt-3" style={{ backgroundColor: "#e6e9cd" }}>
-                            <p className="text-dark  pt-2 pb-2">Trả nợ định kỳ: 13.653.333 đ  | Bao gồm cả lãi suất hằng ngày</p>
+                            <p className="text-dark  pt-2 pb-2">Trả nợ định kỳ:
+                                {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(tienHangThang)}
+                             | Bao gồm cả lãi suất hằng ngày</p>
                         </div>
                     </div>
                     <div className="col-sm-12 text-center mt-3">
-                        <button type="button" className="btn btn-success font-weight-bold">Nộp đơn ngay lập tức</button>
+                        <button type="button" className="btn btn-success font-weight-bold" onClick={()=>submit()}>Nộp đơn ngay lập tức</button>
                     </div>
                 </div>
             </section>

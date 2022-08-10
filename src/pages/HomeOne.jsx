@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 
 //Components List
 import Showcase from "../components/versionOne/Showcase";
@@ -6,28 +6,39 @@ import Features from "../components/versionOne/Features";
 import ThongKe from "../components/versionOne/ThongKe";
 import Services from "../components/versionOne/Services";
 import QuyTrinh from "../components/versionOne/QuyTrinh";
+import { axiosGet } from "../axiosClient";
 // import Footer from "../components/versionOne/Footer";
 
-class HomeOne extends Component {
-    componentDidMount() {
+const HomeOne = () => {
+    useEffect(() => {
         window.scrollTo(0, 0);
-    }
-    render() {
-        return (
-            <React.Fragment>
-                {/* NavBarMultiPage: src/components/common/NavBarMultiPage */}
-                {/* <NavBarMultiPage pageName="home" /> */}
-                {/* Showcase: src/components/versionOne/Showcase */}
-                <Showcase />
-                {/* Features: src/components/versionOne/Features */}
-                <Features />
-                {/* About: src/components/common/About */}
-                <ThongKe />
-                {/* Services: src/components/versionOne/Services */}
-                <Services />
-                <QuyTrinh/>
-                {/* Vision: src/components/common/Vision */}
-                {/* <Vision />
+    })
+    useEffect( () => {
+        
+        axiosGet("/user").then(res=>{
+            console.log(res);
+
+        })
+    },[])
+    // componentDidMount() {
+
+    // }
+
+    return (
+        <React.Fragment>
+            {/* NavBarMultiPage: src/components/common/NavBarMultiPage */}
+            {/* <NavBarMultiPage pageName="home" /> */}
+            {/* Showcase: src/components/versionOne/Showcase */}
+            <Showcase />
+            {/* Features: src/components/versionOne/Features */}
+            <Features />
+            {/* About: src/components/common/About */}
+            <ThongKe />
+            {/* Services: src/components/versionOne/Services */}
+            <Services />
+            <QuyTrinh />
+            {/* Vision: src/components/common/Vision */}
+            {/* <Vision />
                 <FunFactCOunter />
                 <JointClient />
                 <Works />
@@ -37,11 +48,11 @@ class HomeOne extends Component {
                 <Pricing />
                 <Partners />
                 <Subscribe /> */}
-                {/* Footer: src/components/common/Footer */}
-                {/* <Footer pageName="home" /> */}
-            </React.Fragment>
-        );
-    }
+            {/* Footer: src/components/common/Footer */}
+            {/* <Footer pageName="home" /> */}
+        </React.Fragment>
+    );
+
 }
 
 export default HomeOne;

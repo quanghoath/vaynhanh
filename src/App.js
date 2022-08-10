@@ -6,7 +6,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "animate.css/animate.min.css";
-
+import 'react-toastify/dist/ReactToastify.css';
 //Template SCSS Style
 import "./assets/scss/style.scss";
 import "./assets/scss/responsive.scss";
@@ -15,6 +15,7 @@ import "./assets/scss/responsive.scss";
 import HomeOne from "./pages/HomeOne";
 // import ContactUS from "./pages/ContactUs";
 import Login from './pages/Login';
+import User from './pages/User'
 import Footer from './components/versionOne/Footer'
 import ScrollUpBtn from "./components/common/ScrollUpBtn";
 
@@ -56,7 +57,7 @@ const App = () => {
                                             <HomeOne />
                                         </Route>
                                         <Route  path="/login">
-                                            <Login />
+                                            <User />
                                         </Route>
                                         </Switch>
                                     </section>
