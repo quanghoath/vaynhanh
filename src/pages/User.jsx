@@ -21,10 +21,20 @@ const User = (props) => {
     return (
         <React.Fragment>
             {/* Start About Area */}
+            <header style={{
+                backgroundColor: "#edf5ff",
+                position: "fixed",
+                top: "0px",
+                width: "100%",
+            }}
+            className="pt-2 pb-2 text-center"
+            >
+                <p>Tài khoản</p>
+            </header>
             <section id="about" className="about-area ptb-100">
                 <div className="container">
                     <div className="section-title">
-                        {isLogin ? <span>Thông tin tài khoản</span> : <span>Đăng ký/ Đăng nhập</span>}
+                        {/* {isLogin ? <span>Thông tin tài khoản</span> : <span>Đăng ký/ Đăng nhập</span>} */}
                         {/* <h3>Vui lòng đăng ký/ đăng nhập để được vay ngay lập tức</h3> */}
                         <p>
                             Lotte Finance cho vay tiền mặt. Không thế chấp tài sản, 18 tuổi vẫn vay được và miễn thẩm định nhà.
@@ -35,7 +45,7 @@ const User = (props) => {
                             <div>
                                 Xin chào: {user.phone}
                             </div>
-                            <button type="button" class="btn btn-danger" onClick={()=>logout()}>Đăng xuất</button>
+                            {/* <button type="button" class="btn btn-danger" onClick={()=>logout()}>Đăng xuất</button> */}
                         </div>
                         : ""
                     }

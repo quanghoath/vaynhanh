@@ -13,7 +13,11 @@ import "./assets/scss/responsive.scss";
 //Component Import
 import HomeOne from "./pages/HomeOne";
 import User from './pages/User'
-import Footer from './components/versionOne/Footer'
+import Footer from './components/versionOne/Footer';
+import HopDongVay from './pages/HopDongVay'
+import UserInfo from "./pages/UserInfo";
+import XacMinhDanhTinh from "./pages/XacMinhDanhTinh"
+
 import ScrollUpBtn from "./components/common/ScrollUpBtn";
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -21,14 +25,14 @@ import { Route, Switch } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
 const App = () => {
     React.useEffect(() => {
-        window.scrollTo(0,0)
+        window.scrollTo(0, 0)
     });
-    
+
     return (
         <div className="App">
             <div>
                 <div><Toaster /></div>
-                <Footer  />
+                <Footer />
                 {/* <Switch>
                     <Route exact path="/">
                         <HomeOne />
@@ -37,34 +41,43 @@ const App = () => {
                         <Login />
                     </Route>
                 </Switch> */}
-               
+
                 {/* <Page loader={"bar"} color={"#506CEA"} size={9}> */}
-                    <Route
-                        render={({ location }) => (
-                            <TransitionGroup className="transition-group">
-                                <CSSTransition
-                                    key={location.key}
-                                    timeout={{ enter: 900, exit: 900 }}
-                                    classNames="fade"
-                                >
-                                    <section className="route-section">
-                                        <Switch location={location}>
+                <Route
+                    render={({ location }) => (
+                        <TransitionGroup className="transition-group">
+                            <CSSTransition
+                                key={location.key}
+                                timeout={{ enter: 900, exit: 900 }}
+                                classNames="fade"
+                            >
+                                <section className="route-section">
+                                    <Switch location={location}>
                                         <Route exact path="/">
                                             <HomeOne />
                                         </Route>
-                                        <Route  path="/home">
+                                        <Route path="/home">
                                             <HomeOne />
                                         </Route>
-                                        <Route  path="/login">
+                                        <Route path="/login">
                                             <User />
                                         </Route>
-                                        </Switch>
-                                    </section>
-                                </CSSTransition>
-                            </TransitionGroup>
-                        )}
-                    />
-                    <ScrollUpBtn />
+                                        <Route path="/hopdongvay">
+                                            <HopDongVay />
+                                        </Route>
+                                        <Route path="/userinfo">
+                                            <UserInfo />
+                                        </Route>
+                                        <Route path="/xacminh">
+                                            <XacMinhDanhTinh />
+                                        </Route>
+                                    </Switch>
+                                </section>
+                            </CSSTransition>
+                        </TransitionGroup>
+                    )}
+                />
+                <ScrollUpBtn />
                 {/* </Page> */}
             </div>
         </div>
