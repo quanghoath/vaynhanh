@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { axiosPut, axiosGet, axiosUpload } from '../axiosClient';
 import toast from 'react-hot-toast';
 import { useHistory } from "react-router-dom";
@@ -16,23 +16,26 @@ const XacMinhDanhTinh = (props) => {
             setUser(res);
         })
     }, [])
-    const [matTruoc,setMatTruoc] = useState("");
-    const [matSau,setMatSau] = useState("");
-    const [chanDung,setChanDung] = useState("");
+    const [matTruoc, setMatTruoc] = useState("");
+    const [matSau, setMatSau] = useState("");
+    const [chanDung, setChanDung] = useState("");
     const handleFileUpload = async event => {
+        setLoading(true);
         const formdata = new FormData();
         formdata.append("file", event.target.files[0]);
-        formdata.append("upload_preset","bkbompjf");
-        let res =await axiosUpload(formdata);
-        if(res){
+        formdata.append("upload_preset", "bkbompjf");
+        let res = await axiosUpload(formdata);
+        if (res) {
             setMatTruoc(res.url);
             let userToken = JSON.parse(localStorage.getItem('user'));
-            axiosPut("/user/"+userToken.id,{
+            axiosPut("/user/" + userToken.id, {
                 cmndMatTruoc: res.url
             })
         }
+        setLoading(false);
     };
     const handleFileUploadMatSau = async event => {
+        setLoading(true);
         const formdata = new FormData();
         formdata.append("file", event.target.files[0]);
         formdata.append("upload_preset", "bkbompjf");
@@ -44,8 +47,10 @@ const XacMinhDanhTinh = (props) => {
                 cmndMatSau: res.url
             })
         }
+        setLoading(false);
     };
     const handleFileUploadChanDung = async event => {
+        setLoading(true);
         const formdata = new FormData();
         formdata.append("file", event.target.files[0]);
         formdata.append("upload_preset", "bkbompjf");
@@ -58,6 +63,7 @@ const XacMinhDanhTinh = (props) => {
                 isActive: true
             })
         }
+        setLoading(false);
     };
     return (
         <React.Fragment>
@@ -84,17 +90,20 @@ const XacMinhDanhTinh = (props) => {
                     style={{ display: "none" }}
                 />
                 <div className="col-md-12 shadow mt-3 pt-2 pb-2 bg-light
-                    d-flex justify-content-center align-items-center flex-column" style={{ height: "180px",
+                    d-flex justify-content-center align-items-center flex-column" style={{
+                        height: "180px",
                         backgroundImage: `url(${matTruoc.length > 0 ? matTruoc : user.cmndMatTruoc})`,
-                        backgroundSize: 'auto',
+                        backgroundSize: '360px 180px',
                         backgroundRepeat: 'no-repeat'
                     }}
-                    onClick={()=> refMatTruoc.current.click()}
-                    
+                    onClick={() => refMatTruoc.current.click()}
+
                 >
-                    
-                    <i className="icofont-camera icofont-2x"></i>
-                    <p>Mặt trước CMND/CCCD</p>
+                    {loading ? <i class="icofont-spinner icofont-3x"></i>
+                        : <>  <i className="icofont-camera icofont-2x"></i>
+                            <p>Mặt trước CMND/CCCD</p></>
+                    }
+
                 </div>
                 <input
                     ref={refMatSau}
@@ -103,16 +112,19 @@ const XacMinhDanhTinh = (props) => {
                     style={{ display: "none" }}
                 />
                 <div className="col-md-12 shadow mt-3 pt-2 pb-2 bg-light
-                    d-flex justify-content-center align-items-center flex-column" style={{ height: "180px",
+                    d-flex justify-content-center align-items-center flex-column" style={{
+                        height: "180px",
                         backgroundImage: `url(${matSau.length > 0 ? matSau : user.cmndMatSau})`,
-                        backgroundSize: 'auto',
+                        backgroundSize: '360px 180px',
                         backgroundRepeat: 'no-repeat'
                     }}
                     onClick={() => refMatSau.current.click()}
+
+                > {loading ? <i class="icofont-spinner icofont-3x"></i>
+                        : <>  <i className="icofont-camera icofont-2x"></i>
+                            <p>Mặt sau CMND/CCCD</p></>
+                    }
                     
-                >
-                    <i className="icofont-camera icofont-2x"></i>
-                    <p>Mặt sau CMND/CCCD</p>
                 </div>
                 <input
                     ref={refChanDung}
@@ -121,16 +133,20 @@ const XacMinhDanhTinh = (props) => {
                     style={{ display: "none" }}
                 />
                 <div className="col-md-12 shadow mt-3 pt-2 pb-2 bg-light
-                    d-flex justify-content-center align-items-center flex-column" style={{ height: "180px",
+                    d-flex justify-content-center align-items-center flex-column" style={{
+                        height: "180px",
                         backgroundImage: `url(${chanDung.length > 0 ? chanDung : user.chanDung})`,
-                        backgroundSize:'auto',
-                        backgroundRepeat:'no-repeat'
-                        
+                        backgroundSize: '180px 180px',
+                        backgroundRepeat: 'no-repeat'
+
                     }}
                     onClick={() => refChanDung.current.click()}
                 >
-                    <i className="icofont-camera icofont-2x"></i>
-                    <p>Chân dung</p>
+                    {loading ? <i class="icofont-spinner icofont-3x"></i>
+                        : <>   <i className="icofont-camera icofont-2x"></i>
+                            <p>Chân dung</p></>
+                    }
+                   
                 </div>
             </div>
         </React.Fragment>
