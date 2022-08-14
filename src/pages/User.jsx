@@ -52,7 +52,7 @@ const User = (props) => {
 
                     <div className="row">
                         {!isLogin ? <Login onSubmitLogin={() => onSubmitLogin()} />
-                            : <UserDetail logOut={() => logout()} /> 
+                            : <UserDetail logOut={() => logout()} userToken={JSON.parse(localStorage.getItem('user'))} /> 
                         }
                         <div className="col-lg-6 col-md-12">
                             <div className="about-img">

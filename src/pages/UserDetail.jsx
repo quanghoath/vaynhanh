@@ -3,15 +3,15 @@ import { axiosDelete, axiosGet } from '../axiosClient';
 import toast from 'react-hot-toast';
 import { useHistory } from "react-router-dom";
 const UserDetail = (props) => {
-    const {logOut} =props;
+    const { logOut, userToken } =props;
     const [user, setUser] = useState([]);
     const history = useHistory();
-    let userToken = JSON.parse(localStorage.getItem('user'));
-    useEffect(() => {
-        axiosGet("/user/" + userToken.id).then((res) => {
-            setUser(res);
-        })
-    }, [])
+    // let userToken = JSON.parse(localStorage.getItem('user'));
+    // useEffect(() => {
+    //     axiosGet("/user/" + userToken.id).then((res) => {
+    //         setUser(res);
+    //     })
+    // }, [])
     useEffect(() => {
         axiosGet("/user/" + userToken.id).then((res) => {
             setUser(res);
