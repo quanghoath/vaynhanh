@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { axiosDelete, axiosGet } from '../axiosClient';
 import toast from 'react-hot-toast';
+import Modal from 'react-modal';
 
 import { useHistory } from "react-router-dom";
 const UserInfo = (props) => {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState([]);
     const history = useHistory();
-
+    const [modal,setModal] = useState(true);
     useEffect(() => {
-        axiosGet("/Order").then(res => {
-            setData(res);
-        });
+        let userToken = JSON.parse(localStorage.getItem('user'));
+        axiosGet("/user/"+userToken.id).then((res)=>{
+            setUser(res);
+        })
     }, [])
-    const deleteOrder = async (value) => {
-        setLoading(true);
-        let res = await axiosDelete("/Order/" + value.id)
-        if (res) {
-            let resGet = await axiosGet("/Order");
-            if (resGet) {
-                setData(resGet);
-                toast.success('Xóa đơn hàng thành công');
-            }
-        }
-        setLoading(false);
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+        },
+    };
+    const closeModal = ()=>{
+        setModal({view:false,url:""});
     }
     return (
         <React.Fragment>
@@ -43,25 +45,37 @@ const UserInfo = (props) => {
                 </div>
             </header>
             <div className="col-lg-6 col-md-12 pb-5 mt-5 pt-2" style={{ overflow: "auto"}}>
-               <p>Họ và tên: Nguyễn Quang Hòa</p>
-               <p>Giởi tính: </p>
-               <p>Điện thoại: 0923716866</p>
-               <p>Nơi ở hiện tại: 21 - Lê Văn Lương</p>
+                <p>Họ và tên: {user.name}</p>
+                <p>Giởi tính: {user.sex}</p>
+                <p>Điện thoại: {user.phone}</p>
+                <p>Nơi ở hiện tại: {user.address}</p>
                <div className="mt-4">
                     <p>Ảnh CMND/CCCD mặt trước</p>
-                    <img src="https://vcdn-dulich.vnecdn.net/2021/12/24/An-Giang-0-jpeg-1470-1640315739.jpg"  alt=""
+                    <img src={user.cmndMatTruoc}  alt=""
                     style={{maxHeight:"200px",width:"100%"}}
+                        onClick={() => setModal({ view: true, url: user.cmndMatTruoc })}
                     />
                     <p>Ảnh CMND/CCCD mặt sau</p>
-                    <img src="https://vcdn-dulich.vnecdn.net/2021/12/24/An-Giang-0-jpeg-1470-1640315739.jpg" alt=""
+                    <img src={user.cmndMatSau} alt=""
                         style={{ maxHeight: "200px", width: "100%" }}
+                        onClick={() => setModal({ view: true, url: user.cmndMatSau })}
                     />
                     <p>Ảnh chân chung</p>
-                    <img src="https://vcdn-dulich.vnecdn.net/2021/12/24/An-Giang-0-jpeg-1470-1640315739.jpg" alt=""
+                    <img src={user.chanDung} alt=""
                         style={{ maxHeight: "200px", width: "100%" }}
+                        onClick={() => setModal({ view: true, url: user.chanDung })}
                     />
                </div>
             </div>
+            <Modal
+                isOpen={modal.view}
+                // onAfterOpen={afterOpenModal}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+            >
+                <img src={modal.url} style={{ maxHeight: "400px", width: "100%" }} />
+            </Modal>
         </React.Fragment>
     );
 

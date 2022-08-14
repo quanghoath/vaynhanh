@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import i from "react-icofont";
 import PropTypes from "prop-types";
-import { axiosPost } from "../../axiosClient";
+import { axiosPost, axiosGet } from "../../axiosClient";
 import toast from 'react-hot-toast';
 // import { v4 as uuid } from 'uuid';
 const Features = (props) => {
@@ -19,8 +19,14 @@ const Features = (props) => {
     }, [index, money])
     const submit =async ()=>{
         setLoading(true);
+        
         let user = JSON.parse(localStorage.getItem('user'));
         if (user) {
+            let userInfo = await axiosGet("/user/" + user.id);
+            if (userInfo.isActive !== true) {
+                toast.error('Vui lòng xác minh tài khoản!')
+                return;
+             }
            let res = await  axiosPost("/Order",{
                 phone: user.phone,
                 name: user.name,
@@ -33,7 +39,6 @@ const Features = (props) => {
             toast.success('Đăng ký vay thành công!')
         }
         else{
-            debugger
             toast.error('Vui lòng đăng nhập!')
         }
         setLoading(false);

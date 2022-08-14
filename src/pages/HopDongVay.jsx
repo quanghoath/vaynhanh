@@ -9,18 +9,34 @@ const HopDongVay = (props) => {
     const history = useHistory();
 
     useEffect(() => {
-        axiosGet("/Order").then(res => {
-            setData(res);
-        });
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (user.isAdmin) {
+            axiosGet("/Order").then(res => {
+                setData(res);
+            });
+        }
+        else{
+            axiosGet("/Order?phone="+user.phone).then(res => {
+                setData(res);
+            });
+        }
     }, [])
     const deleteOrder = async (value) => {
         setLoading(true);
         let res = await axiosDelete("/Order/" + value.id)
         if (res) {
-            let resGet = await axiosGet("/Order");
-            if (resGet) {
-                setData(resGet);
-                toast.success('Xóa đơn hàng thành công');
+            let user = JSON.parse(localStorage.getItem('user'));
+            if (user.isAdmin) {
+                axiosGet("/Order").then(res => {
+                    setData(res);
+                    toast.success('Xóa đơn hàng thành công');
+                });
+            }
+            else {
+                axiosGet("/Order?phone=" + user.phone).then(res => {
+                    setData(res);
+                    toast.success('Xóa đơn hàng thành công');
+                });
             }
         }
         setLoading(false);
@@ -42,7 +58,7 @@ const HopDongVay = (props) => {
                 <p className="font-weight-bold">Danh sách vay</p>
                 </div>
             </header>
-            <div className="col-lg-6 col-md-12 shadow-lg pb-5 mt-5 pt-2" style={{ overflow: "auto"}}>
+            <div className="col-lg-6 col-md-12 shadow-lg pb-5 mt-5 pt-2 mb-5" style={{ overflow: "auto"}}>
                 <table class="table">
                     <thead>
                         <tr>
@@ -62,7 +78,7 @@ const HopDongVay = (props) => {
                                 <td>
                                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.soTien)}
                                 </td>
-                                <td>{item.soThang}</td>
+                                <td>{item.soThang} tháng</td>
                                 <td>
                                     {new Date(item.createdAt).getDate()}  - {new Date(item.createdAt).getMonth() + 1} - {new Date(item.createdAt).getFullYear()}
                                 </td>
