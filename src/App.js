@@ -34,7 +34,6 @@ const App = () => {
     const [user, setUser] = useState([]);
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user'));
-        debugger
         if (user) {
             setUser(user);
             setIsLogin(true);

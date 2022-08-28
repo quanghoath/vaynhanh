@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 // import i from "react-icofont";
 import PropTypes from "prop-types";
 import { axiosPost, axiosGet } from '../axiosClient';
@@ -16,6 +16,7 @@ const Login = (props) => {
         setValid({ phone: "", password: "" });
         setLogin(v);
     }
+    console.log(login)
     const appleChange = (type, value) => {
         let newData = Object.create(data);
         newData[type] = value;
@@ -225,14 +226,23 @@ const Login = (props) => {
         }
     }
     return (
-        <React.Fragment>
-            <div className="col-lg-6 col-md-12 shadow-lg pb-5 " style={{marginTop:"40%"}}>
+        <React.Fragment> 
+            <img src={require('../assets/img/logo.png')} style={{
+            height: "50%",
+            width: "150px",
+            marginTop: "30%",
+            marginLeft: "auto",
+            marginRight: "auto",
+            display: "block"
+        }} alt="" />
+            <div className="col-lg-6 col-md-12 shadow-lg pb-5 mt-4 " >
+               
                 <ul className="nav nav-pills nav-fill " style={{ paddingLeft: "-15px" }}>
                     <li className="nav-item shadow-sm " onClick={() => onChangeType(true)} style={{ cursor: "pointer" }} >
                         <p className={`nav-link ${login ? "active" : ""}`} ><i className="icofont-login"></i> Đăng nhập</p>
                     </li>
                     <li className="nav-item shadow-sm " style={{ cursor: "pointer" }} onClick={() => onChangeType(false)} >
-                        <p className={`nav-link ${!login ? "active" : ""}`}><i className="icofont-logout"></i>  Đăng ký</p>
+                        <p className={`nav-link ${login ? "" : "active"}`}><i className="icofont-logout"></i>  Đăng ký</p>
                     </li>
                 </ul> 
                 {renderForm()}
