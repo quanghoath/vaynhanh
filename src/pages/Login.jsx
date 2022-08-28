@@ -129,8 +129,8 @@ const Login = (props) => {
     const renderForm = () => {
         if (login === true) {
             return (
-                <div className="pt-2 text-center">
-                    <p className="text-center font-weight-bold mb-3" style={{fontSize:"20px"}}>Đăng nhập thành viên</p>
+                <div className="pt-4 text-center">
+                    <p className="text-center font-weight-bold mb-3" >Đăng nhập thành viên</p>
                     <p className="font-weight-bold text-left">Số điện thoại</p>
                     <div className="input-group has-validation pt-0">
                         <div className="input-group-prepend">
@@ -173,8 +173,8 @@ const Login = (props) => {
         }
         else {
             return (
-                <div className="text-center pt-5">
-                    <p className="">Đăng ký thành viên</p>
+                <div className="text-center pt-4">
+                    <p className="text-center font-weight-bold mb-3">Đăng ký thành viên</p>
                     <div className="input-group has-validation pt-3">
                         <div className="input-group-prepend">
                             <span className="input-group-text"><i className="icofont-ui-touch-phone"></i></span>
