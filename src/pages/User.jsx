@@ -11,7 +11,8 @@ const User = (props) => {
         }
     }, [])
     const logout = () => {
-        onSubmitLogin(false);
+        localStorage.removeItem('user')
+        onSubmitLogin();
     }
     return (
         <React.Fragment>

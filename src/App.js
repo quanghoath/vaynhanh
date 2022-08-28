@@ -34,6 +34,7 @@ const App = () => {
     const [user, setUser] = useState([]);
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user'));
+        debugger
         if (user) {
             setUser(user);
             setIsLogin(true);
@@ -46,7 +47,7 @@ const App = () => {
         setIsLogin(false);
     }
     return (
-        <div className="App ">
+        <div className="App login_bg">
             <div>
                 <div><Toaster /></div>
                 
@@ -62,7 +63,7 @@ const App = () => {
                 {/* <Page loader={"bar"} color={"#506CEA"} size={9}> */}
                 <Route
                     render={({ location }) => (
-                        <TransitionGroup className="transition-group login_bg">
+                        <TransitionGroup className="transition-group ">
                             <CSSTransition
                                 key={location.key}
                                 timeout={{ enter: 900, exit: 900 }}
