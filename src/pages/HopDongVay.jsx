@@ -7,6 +7,7 @@ const HopDongVay = (props) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const history = useHistory();
+    const [user,setUser] = useState({})
 
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user'));
@@ -20,6 +21,7 @@ const HopDongVay = (props) => {
                 setData(res);
             });
         }
+        setUser(user);
     }, [])
     const deleteOrder = async (value) => {
         setLoading(true);
@@ -52,40 +54,40 @@ const HopDongVay = (props) => {
             }}
                 className="p-2 text-center"
             >
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between align-items-center">
 
-                <p onClick={()=>history.push('/login')}>Trở lại</p>
-                <p className="font-weight-bold">Danh sách vay</p>
+                    <p onClick={() => history.push('/login')}><i class="icofont-bubble-left icofont-3x"></i></p>
+                    <p className="font-weight-bold">Danh sách vay</p>
                 </div>
             </header>
-            <div className="col-lg-6 col-md-12 shadow-lg pb-5 mt-5 pt-2 mb-5" style={{ overflow: "auto"}}>
+            <div className="col-lg-6 col-md-12 shadow-lg pb-5 mt-5 pt-5 mb-5" style={{ overflow: "auto"}}>
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">Điện thoại</th>
-                            <th scope="col">Số tiền</th>
-                            <th scope="col">Thời hạn</th>
-                            <th scope="col">Ngày vay</th>
+                            <th scope="col" style={{minWidth:"100px"}}>Điện thoại</th>
+                            <th scope="col" style={{ minWidth: "100px" }}>Số tiền</th>
+                            <th scope="col" style={{ minWidth: "100px" }}>Thời hạn</th>
+                            <th scope="col" style={{ minWidth: "100px" }}>Ngày vay</th>
                             <th scope="col">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data && data.map((item) => {
+                        {data && data.map((item,i) => {
                             return <tr key={item.id}>
-                                <th scope="row">1</th>
+                                <th scope="row">{i+1}</th>
                                 <td>{item.phone}</td>
                                 <td>
                                     {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.soTien)}
                                 </td>
-                                <td>{item.soThang} tháng</td>
-                                <td>
+                                <td style={{ minWidth: "100px" }}>{item.soThang} tháng</td>
+                                <td style={{ minWidth: "150px" }}>
                                     {new Date(item.createdAt).getDate()}  - {new Date(item.createdAt).getMonth() + 1} - {new Date(item.createdAt).getFullYear()}
                                 </td>
                                 <td>
 
                                     <button type="button" class="btn btn-danger pt-1 pb-1"
-                                        disabled={loading ? true : false}
+                                        disabled={user.isAdmin === false ? true : false}
                                         onClick={() => deleteOrder(item)}>Xóa</button>
 
                                 </td>

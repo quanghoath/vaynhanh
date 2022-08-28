@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { axiosPost, axiosGet } from '../axiosClient';
 import toast from 'react-hot-toast';
 // import { v4 as uuid } from 'uuid';
-const Login = (props) => {
+const DangNhap = (props) => {
     const {onSubmitLogin} = props;
     const [login, setLogin] = useState(true);
     const [data, setData] = useState({});
@@ -129,10 +129,9 @@ const Login = (props) => {
     const renderForm = () => {
         if (login === true) {
             return (
-                <div className="pt-2 text-center">
-                    <p className="text-center font-weight-bold mb-3" style={{fontSize:"20px"}}>Đăng nhập thành viên</p>
-                    <p className="font-weight-bold text-left">Số điện thoại</p>
-                    <div className="input-group has-validation pt-0">
+                <div className="text-center pt-5">
+                    <p className="">Đăng nhập thành viên</p>
+                    <div className="input-group has-validation pt-3">
                         <div className="input-group-prepend">
                             <span className="input-group-text"><i className="icofont-ui-touch-phone"></i></span>
                         </div>
@@ -145,8 +144,7 @@ const Login = (props) => {
                     <div className="text-left text-danger">
                         {valid.phone?.length > 0 ? valid.phone : ""}
                     </div>
-                    <p className="font-weight-bold mt-3 text-left">Mật khẩu</p>
-                    <div className="input-group has-validation pt-0">
+                    <div className="input-group has-validation pt-3">
                         <div className="input-group-prepend">
                             <span className="input-group-text">
                                 <i className="icofont-lock"></i>
@@ -226,7 +224,7 @@ const Login = (props) => {
     }
     return (
         <React.Fragment>
-            <div className="col-lg-6 col-md-12 shadow-lg pb-5 " style={{marginTop:"40%"}}>
+            <div className="col-lg-6 col-md-12 shadow-lg pb-5">
                 <ul className="nav nav-pills nav-fill " style={{ paddingLeft: "-15px" }}>
                     <li className="nav-item shadow-sm " onClick={() => onChangeType(true)} style={{ cursor: "pointer" }} >
                         <p className={`nav-link ${login ? "active" : ""}`} ><i className="icofont-login"></i> Đăng nhập</p>
@@ -234,20 +232,19 @@ const Login = (props) => {
                     <li className="nav-item shadow-sm " style={{ cursor: "pointer" }} onClick={() => onChangeType(false)} >
                         <p className={`nav-link ${!login ? "active" : ""}`}><i className="icofont-logout"></i>  Đăng ký</p>
                     </li>
-                </ul> 
+                </ul>
                 {renderForm()}
                 {err && err.length > 0 ?
                     (<p className="pt-3 text-danger">{err}</p>) : ""
                 }
             </div>
-            
         </React.Fragment>
     );
 
 }
 
 //Props Types
-Login.propTypes = {
+DangNhap.propTypes = {
     sectionName: PropTypes.string,
     sectionTitle: PropTypes.string,
     sectionDescription: PropTypes.string,
@@ -267,7 +264,7 @@ Login.propTypes = {
 };
 
 //Default Props
-Login.defaultProps = {
+DangNhap.defaultProps = {
     sectionName: "Đăng ký/ Đăng nhập",
     sectionTitle: "Vui lòng đăng ký/ đăng nhập để được vay ngay lập tực",
     sectionDescription:
@@ -290,4 +287,4 @@ Login.defaultProps = {
 
 };
 
-export default Login;
+export default DangNhap;

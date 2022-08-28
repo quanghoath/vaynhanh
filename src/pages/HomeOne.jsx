@@ -8,6 +8,7 @@ import Services from "../components/versionOne/Services";
 import QuyTrinh from "../components/versionOne/QuyTrinh";
 // import Footer from "../components/versionOne/Footer";
 
+import Footer from '../components/versionOne/Footer';
 const HomeOne = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -39,6 +40,7 @@ const HomeOne = () => {
                 <Subscribe /> */}
             {/* Footer: src/components/common/Footer */}
             {/* <Footer pageName="home" /> */}
+            <Footer />
         </React.Fragment>
     );
 

@@ -76,9 +76,9 @@ const XacMinhDanhTinh = (props) => {
             }}
                 className="p-2 text-center"
             >
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between  align-items-center">
 
-                    <p onClick={() => history.push('/login')}>Trở lại</p>
+                    <p onClick={() => history.push('/login')}><i class="icofont-bubble-left icofont-3x"></i></p>
                     <p className="font-weight-bold">Xác minh danh tính</p>
                 </div>
             </header>

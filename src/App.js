@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import { Route, Switch } from "react-router-dom";
 // import Page from "react-page-loading";
 
@@ -17,22 +17,39 @@ import Footer from './components/versionOne/Footer';
 import HopDongVay from './pages/HopDongVay'
 import UserInfo from "./pages/UserInfo";
 import XacMinhDanhTinh from "./pages/XacMinhDanhTinh"
+import XacNhanVay from "./pages/XacNhanVay";
 
 import ScrollUpBtn from "./components/common/ScrollUpBtn";
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { Toaster } from 'react-hot-toast';
+import Login from "./pages/Login"
+
 const App = () => {
     React.useEffect(() => {
         window.scrollTo(0, 0)
     });
-
+    const [isLogin, setIsLogin] = useState(false);
+    const [user, setUser] = useState([]);
+    useEffect(() => {
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            setUser(user);
+            setIsLogin(true);
+        }
+    }, [])
+    const onSubmitLogin = ()=>{
+        setIsLogin(true);
+    }
+    const onLogout = ()=>{
+        setIsLogin(false);
+    }
     return (
-        <div className="App">
+        <div className="App ">
             <div>
                 <div><Toaster /></div>
-                <Footer />
+                
                 {/* <Switch>
                     <Route exact path="/">
                         <HomeOne />
@@ -45,22 +62,33 @@ const App = () => {
                 {/* <Page loader={"bar"} color={"#506CEA"} size={9}> */}
                 <Route
                     render={({ location }) => (
-                        <TransitionGroup className="transition-group">
+                        <TransitionGroup className="transition-group login_bg">
                             <CSSTransition
                                 key={location.key}
                                 timeout={{ enter: 900, exit: 900 }}
                                 classNames="fade"
                             >
-                                <section className="route-section">
+                                <section className="route-section ">
                                     <Switch location={location}>
                                         <Route exact path="/">
-                                            <HomeOne />
+                                            {isLogin ? <HomeOne /> : <Redirect to="/login" />}
+                                         
                                         </Route>
                                         <Route path="/home">
                                             <HomeOne />
                                         </Route>
+                                        <Route path="/xacnhanvay">
+                                            <XacNhanVay />
+                                        </Route>
                                         <Route path="/login">
-                                            <User />
+                                            {isLogin ? <Redirect to="/user" /> : <Login onSubmitLogin={() => onSubmitLogin()} />}
+                                           
+                                        </Route>
+                                        <Route path="/user">
+                                            {isLogin ? <User onSubmitLogin={() => onLogout()} /> :
+                                                <Redirect to="/login" />
+                                            }
+                                           
                                         </Route>
                                         <Route path="/hopdongvay">
                                             <HopDongVay />

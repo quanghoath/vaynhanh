@@ -3,12 +3,16 @@ import i from "react-icofont";
 import PropTypes from "prop-types";
 import { axiosPost, axiosGet } from "../../axiosClient";
 import toast from 'react-hot-toast';
+import { useHistory,useParams } from "react-router-dom";
+
 // import { v4 as uuid } from 'uuid';
 const Features = (props) => {
     const [index, setIndex] = useState(6);
     const [money, setMoney] = useState(20000000);
     const [tienHangThang, setTienHangThang] = useState(0);
-    const [loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
+   
     //Features loop END
     const onClickChange = (value) => {
         setIndex(value);
@@ -27,16 +31,25 @@ const Features = (props) => {
                 toast.error('Vui lòng xác minh tài khoản!')
                 return;
              }
-           let res = await  axiosPost("/Order",{
-                phone: user.phone,
-                name: user.name,
-               createdAt: new Date(),
-                idUser: user.id,
-                soTien: money,
-                soThang: index
-            //    id: unique_id
-            })
-            toast.success('Đăng ký vay thành công!')
+             history.push('/xacnhanvay',{
+                 item: {
+                     phone: user.phone,
+                     name: user.name,
+                     createdAt: new Date(),
+                     idUser: user.id,
+                     soTien: money,
+                     soThang: index
+                 }
+             })
+        //    let res = await  axiosPost("/Order",{
+        //         phone: user.phone,
+        //         name: user.name,
+        //        createdAt: new Date(),
+        //         idUser: user.id,
+        //         soTien: money,
+        //         soThang: index
+        //     })
+        //     toast.success('Đăng ký vay thành công!')
         }
         else{
             toast.error('Vui lòng đăng nhập!')
