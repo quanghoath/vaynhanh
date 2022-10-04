@@ -16,7 +16,6 @@ const Showcase = (props) =>{
     const vayNgay =()=>{
         let userToken = JSON.parse(localStorage.getItem('user'));
         axiosGet("/user/" + userToken.id).then((res) => {
-            debugger
             history.push('/xacnhanvay', {
                 item: {
                     phone: res.phone,

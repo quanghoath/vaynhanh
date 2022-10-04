@@ -20,7 +20,7 @@ const XacMinhDanhTinh = (props) => {
     const [matTruoc, setMatTruoc] = useState("");
     const [matSau, setMatSau] = useState("");
     const [chanDung, setChanDung] = useState("");
-    const [isErrr,setIsErr] = useState(false);
+    const [isErrr, setIsErr] = useState(false);
     const handleFileUpload = async event => {
         setLoading(true);
         const formdata = new FormData();
@@ -78,13 +78,13 @@ const XacMinhDanhTinh = (props) => {
     const [index, setIndex] = useState(1);
     const nextStep = () => {
         if (!user.cmndMatTruoc ||
-            !user.cmndMatSau||
+            !user.cmndMatSau ||
             !user.chanDung) {
             setIsErr(true);
             return
         }
         setIndex(index + 1);
-        if(index === 2){
+        if (index === 2) {
             debugger
             setIsErr(false);
             let userToken = JSON.parse(localStorage.getItem('user'));
@@ -140,7 +140,7 @@ const XacMinhDanhTinh = (props) => {
                             backgroundImage: `url(${matTruoc.length > 0 ? matTruoc : user.cmndMatTruoc})`,
                             backgroundSize: '360px 180px',
                             backgroundRepeat: 'no-repeat',
-                        border: `1px solid ${user.cmndMatTruoc ? "": "red"}`
+                            border: `1px solid ${user.cmndMatTruoc ? "" : "red"}`
                         }}
                         onClick={() => refMatTruoc.current.click()}
                     >
@@ -162,7 +162,7 @@ const XacMinhDanhTinh = (props) => {
                             backgroundImage: `url(${matSau.length > 0 ? matSau : user.cmndMatSau})`,
                             backgroundSize: '360px 180px',
                             backgroundRepeat: 'no-repeat',
-                        border: `1px solid ${user.cmndMatSau ? "" : "red"}`
+                            border: `1px solid ${user.cmndMatSau ? "" : "red"}`
                         }}
                         onClick={() => refMatSau.current.click()}
 
@@ -184,7 +184,7 @@ const XacMinhDanhTinh = (props) => {
                             backgroundImage: `url(${chanDung.length > 0 ? chanDung : user.chanDung})`,
                             backgroundSize: '180px 180px',
                             backgroundRepeat: 'no-repeat',
-                        border: `1px solid ${user.chanDung ? "" : "red"}`
+                            border: `1px solid ${user.chanDung ? "" : "red"}`
 
                         }}
                         onClick={() => refChanDung.current.click()}
@@ -198,87 +198,135 @@ const XacMinhDanhTinh = (props) => {
 
                 </div>
                 :
-                <div className="col-lg-6 col-md-12 pb-2 mt-5 pt-5" style={{ overflow: "auto" }}>
-                    <div className="d-flex justify-content-between align-items-center mb-1" style={{
-                        border: "1px solid gray",
-                        backgroundColor: '',
-                        borderRadius: '30px',
-                        padding: '2px 15px'
-                    }}>
-                        <p style={{ color: "orange" }}>Họ và tên</p>
-                       
-                            <input type="text" value={user.name} className="p-0 m-0" style={{
-                                border: "none",
-                                borderBottom: "1px solid red"
-                            }}
-                             onChange={(e) => onChangeInput(e, "name")}
-                             />
-                       
+                <div className="col-lg-6 col-md-12 pb-2 mt-3 pt-5" style={{ overflow: "auto" }}>
+                    <div className="col-12 mb-3" style={{ backgroundColor: "red", color: "white", padding: "5px 15px" }}>
+                        <p>Thông tin cá nhân</p>
                     </div>
-                    <div className="d-flex justify-content-between align-items-center mb-1" style={{
-                        border: "1px solid gray",
-                        backgroundColor: '',
-                        borderRadius: '30px',
-                        padding: '2px 15px'
-                    }}>
-                        <p style={{ color: "orange" }}>Điện thoại</p>
-                        {/* <p> {edit === false ?
-                            user.phone : */}
-                            <input type="text" disabled value={user.phone} className="p-0 m-0" 
-                            style={{ border: "none", borderBottom: "1px solid red" }} 
-                            // onChange={(e) => onChangeInput(e, "phone")}
-                             />
-                        {/* }</p> */}
-                    </div>
-
-                    <div className="d-flex justify-content-between align-items-center mb-1" style={{
-                        border: "1px solid gray",
-                        backgroundColor: '',
-                        borderRadius: '30px',
-                        padding: '2px 15px'
-                    }}>
-                        <p style={{ color: "orange" }}>Giới tính</p>
-
-                        <input type="text" value={user.sex} className="p-0 m-0" style={{
-                            border: "none",
-                            borderBottom: "1px solid red"
-                        }}
-                         onChange={(e) => onChangeInput(e, "sex")}
-                        />
-
-                    </div>
-                    <div className="d-flex justify-content-between align-items-center mb-1" style={{
-                        border: "1px solid gray",
-                        backgroundColor: '',
-                        borderRadius: '30px',
-                        padding: '2px 15px'
-                    }}>
-                        <p style={{ color: "orange" }}>Nơi ở hiện tại</p>
-                            <input type="text" value={user.address} className="p-0 m-0" 
-                            style={{ border: "none", borderBottom: "1px solid red" }}
-                             onChange={(e) => onChangeInput(e, "address")} />
-                    </div>
-                    <div className="d-flex justify-content-between align-items-center mb-1" style={{
-                        border: "1px solid gray",
-                        backgroundColor: '',
-                        borderRadius: '30px',
-                        padding: '2px 15px'
-                    }}>
-                        <p style={{ color: "orange" }}>Số CMND</p>
-                            <input type="text" value={user.soCMND} className="p-0 m-0" 
-                            style={{ border: "none", borderBottom: "1px solid red" }}
-                             onChange={(e) => onChangeInput(e, "soCMND")} />
-
-                    </div>
+                    <form>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Họ và tên</label>
+                            <input type="text" className="form-control"  placeholder="Nguyễn Văn A" 
+                                value={user.name}
+                                onChange={(e) => onChangeInput(e, "name")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Địa chỉ</label>
+                            <input type="text" className="form-control" placeholder="21 Nguyễn Chí Thanh"
+                                value={user.address}
+                                onChange={(e) => onChangeInput(e, "address")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Số CMND</label>
+                            <input type="text" className="form-control" placeholder="21 Nguyễn Chí Thanh"
+                                value={user.soCMND}
+                                onChange={(e) => onChangeInput(e, "soCMND")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Giới tính</label>
+                            <input type="text" className="form-control" placeholder="Nam"
+                                value={user.sex}
+                                onChange={(e) => onChangeInput(e, "sex")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Ngày sinh</label>
+                            <input type="date" className="form-control" 
+                                value={user.birthday}
+                                onChange={(e) => onChangeInput(e, "birthday")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Nghề nghiệp</label>
+                            <input type="text" className="form-control" placeholder="Văn phòng"
+                                value={user.job}
+                                onChange={(e) => onChangeInput(e, "job")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Thu nhập</label>
+                            <input type="text" className="form-control" placeholder="10 triệu"
+                                value={user.thuNhap}
+                                onChange={(e) => onChangeInput(e, "thuNhap")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Mục đích vay</label>
+                            <input type="text" className="form-control" placeholder="Tiêu"
+                                value={user.mucDichVay}
+                                onChange={(e) => onChangeInput(e, "mucDichVay")}
+                            />
+                        </div>
+                        <div className="col-12 mb-3" style={{ backgroundColor: "red", color: "white", padding: "5px 15px" }}>
+                            <p>Liên hệ người thân (Vợ chồng, anh chị ...)</p>
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Tên</label>
+                            <input type="text" className="form-control" placeholder="Nguyễn Văn B"
+                                value={user.tenNguoiThan}
+                                onChange={(e) => onChangeInput(e, "tenNguoiThan")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Số điện thoại</label>
+                            <input type="text" className="form-control" placeholder="0987654321"
+                                value={user.sdtNguoiThan}
+                                onChange={(e) => onChangeInput(e, "sdtNguoiThan")}
+                            />
+                        </div>
+                        <div className="col-12 mb-3" style={{ backgroundColor: "red", color: "white", padding: "5px 15px" }}>
+                            <p>Liên hệ với bạn bè</p>
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Tên</label>
+                            <input type="text" className="form-control" placeholder="10 triệu"
+                                value={user.tenBanBe}
+                                onChange={(e) => onChangeInput(e, "tenBanBe")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Số điện thoại</label>
+                            <input type="text" className="form-control" placeholder="0987654321"
+                                value={user.sdtBanBe}
+                                onChange={(e) => onChangeInput(e, "sdtBanBe")}
+                            />
+                        </div>
+                        <div className="col-12 mb-3" style={{ backgroundColor: "red", color: "white", padding: "5px 15px" }}>
+                            <p>Tài khoản ngân hàng</p>
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Tên ngân hàng</label>
+                            <input type="text" className="form-control" placeholder="Vietcombank"
+                                value={user.tenNganHang}
+                                onChange={(e) => onChangeInput(e, "tenNganHang")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Số TK ngân hàng</label>
+                            <input type="text" className="form-control" placeholder="0987654321"
+                                value={user.soTKNganHang}
+                                onChange={(e) => onChangeInput(e, "soTKNganHang")}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontWeight: 'bold' }}>Tên tài khoản</label>
+                            <input type="text" className="form-control" placeholder="Nguyễn Thị A"
+                                value={user.tenTK}
+                                onChange={(e) => onChangeInput(e, "tenTK")}
+                            />
+                        </div>
+                    </form>
                 </div>
             }
 
             <div className="col-12">
                 {isErrr ?
-                <p style={{color:"red"}}>Vui lòng tải đủ các ảnh</p>
-                :""
+                    <p style={{ color: "red" }}>Vui lòng tải đủ các ảnh</p>
+                    : ""
                 }
-                <button className="col-12 btn btn-primary mt-2 "  onClick={() => nextStep()}>Tiếp tục</button>
+                <button className="col-12 btn btn-primary mt-2 mb-2" onClick={() => nextStep()}>Tiếp tục</button>
             </div>
         </React.Fragment>
     );
