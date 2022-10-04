@@ -3,9 +3,10 @@ import { axiosPost, } from '../axiosClient';
 import toast from 'react-hot-toast';
 import { useHistory, useLocation } from "react-router-dom";
 
+import _ from 'lodash';
 const XacNhanVay = (props) => {
     // const [user, setUser] = useState([]);
-    const [data,setData] = useState({});
+    const [data, setData] = useState({});
     const history = useHistory();
     const param = useLocation();
     useEffect(() => {
@@ -15,7 +16,7 @@ const XacNhanVay = (props) => {
         // })
         setData(param.state.item)
     }, [param])
-    const onChangeSlect = (e)=>{
+    const onChangeSlect = (e) => {
         let vl = Number(e.target.value);
         setData({
             soThang: vl,
@@ -24,24 +25,37 @@ const XacNhanVay = (props) => {
     }
     const [loading, setLoading] = useState(false);
     const submit = async () => {
+        if (data.soTien > 500000000) {
+            toast.error('Số tiền không được lớn hơn: 500.000.000 đ')
+            return;
+        }
+        if (data.soTien < 20000000) {
+            toast.error('Số tiền không được nhỏ hơn: 20.000.000 đ')
+            return;
+        }
         setLoading(true);
         let user = JSON.parse(localStorage.getItem('user'));
         if (user) {
-                await  axiosPost("/Order",{
-                    phone: user.phone,
-                    name: user.name,
-                    createdAt: new Date(),
-                    idUser: user.id,
-                    soTien: data.soTien,
-                    soThang: data.soThang
-                })
-                toast.success('Đăng ký vay thành công!')
+            await axiosPost("/Order", {
+                phone: user.phone,
+                name: user.name,
+                createdAt: new Date(),
+                idUser: user.id,
+                soTien: data.soTien,
+                soThang: data.soThang
+            })
+            toast.success('Đăng ký vay thành công!')
             history.push('/home');
         }
         else {
             toast.error('Vui lòng đăng nhập!')
         }
         setLoading(false);
+    }
+    const onChangeMoney = (v) => {
+        let _data = _.cloneDeep(data);
+        _data.soTien = v;
+        setData(_data);
     }
     return (
         <React.Fragment>
@@ -67,12 +81,13 @@ const XacNhanVay = (props) => {
                     backgroundImage: 'linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%)'
                 }}>
                     <p>Số tiền vay</p>
-                    <input type="text" className="form-control" required style={{ border: "1px solid" }}
-                        value={new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data.soTien)}
+                    <input type="number" className="form-control" required style={{ border: "1px solid" }}
+                        value={data.soTien}
                         // placeholder=""
-                        disabled
-                    // onChange={(e) => onChangeMoney( e.target.value)}
+                        // disabled
+                        onChange={(e) => onChangeMoney(e.target.value)}
                     />
+                    <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data.soTien)}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <p>Từ 20.000.000đ</p>
                         <p>Đến 500.000.000đ</p>
@@ -81,9 +96,9 @@ const XacNhanVay = (props) => {
                         <p>Thời hạn vay</p>
                         <select style={{ width: '40%', border: '1px solid gray', padding: '3px', borderRadius: "5px" }}
                             value={data.soThang}
-                            onChange={(e)=>onChangeSlect(e)}
+                            onChange={(e) => onChangeSlect(e)}
                         >
-                            <option  value={6}>6 tháng</option>
+                            <option value={6}>6 tháng</option>
                             <option value={12}>12 tháng</option>
                             <option value={18}>18 tháng</option>
                             <option value={24}>24 tháng</option>
@@ -111,7 +126,7 @@ const XacNhanVay = (props) => {
                     </div>
                     <div className="d-flex justify-content-between  align-items-center">
                         <p>Ngày vay</p>
-                        <p> 
+                        <p>
                             {new Date().getDate()}  - {new Date().getMonth() + 1} - {new Date().getFullYear()}
                         </p>
                     </div>

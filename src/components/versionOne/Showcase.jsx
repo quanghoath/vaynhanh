@@ -1,22 +1,34 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "react-modal-video/css/modal-video.min.css";
 import ModalVideo from "react-modal-video";
+import { useHistory } from "react-router-dom";
 
-class Showcase extends Component {
-    constructor() {
-        super();
-        this.state = {
-            isOpen: false
-        };
-        this.openModal = this.openModal.bind(this);
+import {  axiosGet } from '../../axiosClient';
+const Showcase = (props) =>{
+    const history = useHistory();
+    const [isOpen, setIsOpen] = useState(false);
+    const { showcasenName, showcaseBtnOneText, showcaseDescription, showcaseBtnTwoText, showcaseImage } = props;
+
+    const openModal =()=> {
+        setIsOpen(true);
     }
-
-    openModal() {
-        this.setState({ isOpen: true });
+    const vayNgay =()=>{
+        let userToken = JSON.parse(localStorage.getItem('user'));
+        axiosGet("/user/" + userToken.id).then((res) => {
+            debugger
+            history.push('/xacnhanvay', {
+                item: {
+                    phone: res.phone,
+                    name: res.name,
+                    createdAt: new Date(),
+                    idUser: res.id,
+                    soTien: 20000000,
+                    soThang: 6
+                }
+            });
+        })
     }
-
-    render() {
         return (
             <React.Fragment>
                 <div id="home" className="main-banner bg-gray">
@@ -29,45 +41,38 @@ class Showcase extends Component {
                                 <div className="row">
                                     <div className="col-lg-6 col-md-6">
                                         <div className="main-banner-content">
-                                            <h1>{this.props.showcasenName}</h1>
+                                            <h1>{showcasenName}</h1>
                                             <p>
-                                                {this.props.showcaseDescription}
+                                                {showcaseDescription}
                                             </p>
                                             <p>18 tuổi vẫn vay được</p>
                                             <p>Miễn thẩm định nhà</p>
                                             <a
-                                                href={
-                                                    this.props
-                                                        .showcaseBtnOneLink
-                                                }
+                                               onClick={()=>vayNgay()}
                                                 className="btn btn-primary"
                                             >
-                                                {this.props.showcaseBtnOneText}
+                                                {showcaseBtnOneText}
                                             </a>
 
                                             <ModalVideo
                                                 channel="youtube"
-                                                isOpen={this.state.isOpen}
+                                                isOpen={isOpen}
                                                 videoId="vr0qNXmkUJ8"
-                                                onClose={() =>
-                                                    this.setState({
-                                                        isOpen: false
-                                                    })
-                                                }
+                                                onClose={() => setIsOpen(false) }
                                             />
                                             <button
-                                                onClick={this.openModal}
+                                                onClick={openModal}
                                                 className="btn btn-secondary "
                                             >
                                                 <i className="icofont-ui-play" />
-                                                {this.props.showcaseBtnTwoText}
+                                                {showcaseBtnTwoText}
                                             </button>
                                         </div>
                                     </div>
                                     <div className="col-lg-6 col-md-6">
                                         <div className="banner-img">
                                             <img
-                                                src={this.props.showcaseImage}
+                                                src={showcaseImage}
                                                 alt="img"
                                             />
                                         </div>
@@ -80,7 +85,6 @@ class Showcase extends Component {
                 </div>
             </React.Fragment>
         );
-    }
 }
 
 //Props Types
