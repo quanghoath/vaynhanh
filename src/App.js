@@ -18,6 +18,7 @@ import HopDongVay from './pages/HopDongVay'
 import UserInfo from "./pages/UserInfo";
 import XacMinhDanhTinh from "./pages/XacMinhDanhTinh"
 import XacNhanVay from "./pages/XacNhanVay";
+import TheNganHang from "./pages/TheNganHang"
 
 import ScrollUpBtn from "./components/common/ScrollUpBtn";
 
@@ -89,6 +90,9 @@ const App = () => {
                                                 <Redirect to="/login" />
                                             }
                                            
+                                        </Route>
+                                        <Route path="/thenganhang">
+                                            <TheNganHang />
                                         </Route>
                                         <Route path="/hopdongvay">
                                             <HopDongVay />

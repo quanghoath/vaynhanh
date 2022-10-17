@@ -205,28 +205,28 @@ const XacMinhDanhTinh = (props) => {
                     <form>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Họ và tên</label>
-                            <input type="text" className="form-control"  placeholder="Nguyễn Văn A" 
+                            <input type="text" className="form-control" 
                                 value={user.name}
                                 onChange={(e) => onChangeInput(e, "name")}
                             />
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Địa chỉ</label>
-                            <input type="text" className="form-control" placeholder="21 Nguyễn Chí Thanh"
+                            <input type="text" className="form-control"
                                 value={user.address}
                                 onChange={(e) => onChangeInput(e, "address")}
                             />
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Số CMND</label>
-                            <input type="text" className="form-control" placeholder="21 Nguyễn Chí Thanh"
+                            <input type="text" className="form-control"
                                 value={user.soCMND}
                                 onChange={(e) => onChangeInput(e, "soCMND")}
                             />
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Giới tính</label>
-                            <input type="text" className="form-control" placeholder="Nam"
+                            <input type="text" className="form-control" 
                                 value={user.sex}
                                 onChange={(e) => onChangeInput(e, "sex")}
                             />
@@ -240,21 +240,21 @@ const XacMinhDanhTinh = (props) => {
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Nghề nghiệp</label>
-                            <input type="text" className="form-control" placeholder="Văn phòng"
+                            <input type="text" className="form-control" 
                                 value={user.job}
                                 onChange={(e) => onChangeInput(e, "job")}
                             />
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Thu nhập</label>
-                            <input type="text" className="form-control" placeholder="10 triệu"
+                            <input type="text" className="form-control" 
                                 value={user.thuNhap}
                                 onChange={(e) => onChangeInput(e, "thuNhap")}
                             />
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Mục đích vay</label>
-                            <input type="text" className="form-control" placeholder="Tiêu"
+                            <input type="text" className="form-control"
                                 value={user.mucDichVay}
                                 onChange={(e) => onChangeInput(e, "mucDichVay")}
                             />
@@ -264,14 +264,14 @@ const XacMinhDanhTinh = (props) => {
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Tên</label>
-                            <input type="text" className="form-control" placeholder="Nguyễn Văn B"
+                            <input type="text" className="form-control"
                                 value={user.tenNguoiThan}
                                 onChange={(e) => onChangeInput(e, "tenNguoiThan")}
                             />
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Số điện thoại</label>
-                            <input type="text" className="form-control" placeholder="0987654321"
+                            <input type="text" className="form-control"
                                 value={user.sdtNguoiThan}
                                 onChange={(e) => onChangeInput(e, "sdtNguoiThan")}
                             />
@@ -281,14 +281,14 @@ const XacMinhDanhTinh = (props) => {
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Tên</label>
-                            <input type="text" className="form-control" placeholder="10 triệu"
+                            <input type="text" className="form-control" 
                                 value={user.tenBanBe}
                                 onChange={(e) => onChangeInput(e, "tenBanBe")}
                             />
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Số điện thoại</label>
-                            <input type="text" className="form-control" placeholder="0987654321"
+                            <input type="text" className="form-control" 
                                 value={user.sdtBanBe}
                                 onChange={(e) => onChangeInput(e, "sdtBanBe")}
                             />
@@ -298,21 +298,21 @@ const XacMinhDanhTinh = (props) => {
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Tên ngân hàng</label>
-                            <input type="text" className="form-control" placeholder="Vietcombank"
+                            <input type="text" className="form-control" 
                                 value={user.tenNganHang}
                                 onChange={(e) => onChangeInput(e, "tenNganHang")}
                             />
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Số TK ngân hàng</label>
-                            <input type="text" className="form-control" placeholder="0987654321"
+                            <input type="text" className="form-control" 
                                 value={user.soTKNganHang}
                                 onChange={(e) => onChangeInput(e, "soTKNganHang")}
                             />
                         </div>
                         <div className="form-group">
                             <label style={{ fontWeight: 'bold' }}>Tên tài khoản</label>
-                            <input type="text" className="form-control" placeholder="Nguyễn Thị A"
+                            <input type="text" className="form-control" 
                                 value={user.tenTK}
                                 onChange={(e) => onChangeInput(e, "tenTK")}
                             />

@@ -9,10 +9,18 @@ const Footer = (props) => {
                     <div className="container">
                         <div className="row">
                             <div className="col-2 col-sm-1 col-lg-1 col-md-1 text-center" >
-                                <a href="https://zalo.me/0908676629" target="_blank">
+                                <NavLink to="/thenganhang"
+                                    activeStyle={{
+                                        color: "green"
+                                    }}
+                                >
+                                    <i className="icofont-user-alt-3 icofont"></i>
+                                    <p>Thẻ</p>
+                                </NavLink>
+                                {/* <a href="https://zalo.me/0908676629" target="_blank">
                                     <i className="icofont-headphone-alt-2 icofont"></i>
-                                    <p>CSKH</p>
-                                </a>
+                                    <p>Ngân hàng</p>
+                                </a> */}
                             </div>
                             <div className={`col-8 col-sm-10 col-lg-10 col-md-10 text-center`}>
                                 <NavLink to="/home" activeStyle={{
