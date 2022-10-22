@@ -1,48 +1,34 @@
-import React, { Component, useEffect } from "react";
-
-//Components List
+import React, { useEffect } from "react";
+import { isMobile } from 'react-device-detect';
 import Showcase from "../components/versionOne/Showcase";
 import Features from "../components/versionOne/Features";
 import ThongKe from "../components/versionOne/ThongKe";
 import Services from "../components/versionOne/Services";
 import QuyTrinh from "../components/versionOne/QuyTrinh";
-// import Footer from "../components/versionOne/Footer";
-
 import Footer from '../components/versionOne/Footer';
 const HomeOne = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
     })
-
-    return (
-        <React.Fragment>
-            {/* NavBarMultiPage: src/components/common/NavBarMultiPage */}
-            {/* <NavBarMultiPage pageName="home" /> */}
-            {/* Showcase: src/components/versionOne/Showcase */}
-            <Showcase />
-            {/* Features: src/components/versionOne/Features */}
-            <Features />
-            {/* About: src/components/common/About */}
-            <ThongKe />
-            {/* Services: src/components/versionOne/Services */}
-            <Services />
-            <QuyTrinh />
-            {/* Vision: src/components/common/Vision */}
-            {/* <Vision />
-                <FunFactCOunter />
-                <JointClient />
-                <Works />
-                <Team />
-                <Testimonial />
-                <Faq />
-                <Pricing />
-                <Partners />
-                <Subscribe /> */}
-            {/* Footer: src/components/common/Footer */}
-            {/* <Footer pageName="home" /> */}
-            <Footer />
-        </React.Fragment>
-    );
+    if (isMobile) {
+        return (
+            <React.Fragment>
+                <Showcase />
+                <Features />
+                <ThongKe />
+                <Services />
+                <QuyTrinh />
+                <Footer />
+            </React.Fragment>
+        );
+    }
+    else {
+        return <div className="vh-100 " style={{
+            width: '100%', marginTop: '10%'
+        }}>
+            <h3 className="text-center">Thiết bị không hỗ trợ. Vui lòng truy cập bằng điện thoại</h3>
+        </div>
+    }
 
 }
 

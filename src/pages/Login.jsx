@@ -1,11 +1,12 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { isMobile } from 'react-device-detect';
 // import i from "react-icofont";
 import PropTypes from "prop-types";
 import { axiosPost, axiosGet } from '../axiosClient';
 import toast from 'react-hot-toast';
 // import { v4 as uuid } from 'uuid';
 const Login = (props) => {
-    const {onSubmitLogin} = props;
+    const { onSubmitLogin } = props;
     const [login, setLogin] = useState(true);
     const [data, setData] = useState({});
     const [err, setErr] = useState("");
@@ -117,7 +118,7 @@ const Login = (props) => {
                 createdAt: new Date()
                 // id: unique_id
             });
-            if(regis){
+            if (regis) {
                 toast.success('Đăng ký thành công!')
                 setLogin(true);
                 // setErr("");
@@ -225,34 +226,45 @@ const Login = (props) => {
             )
         }
     }
-    return (
-        <React.Fragment> 
-            <img src={require('../assets/img/logo.png')} style={{
-            height: "50%",
-            width: "150px",
-            marginTop: "30%",
-            marginLeft: "auto",
-            marginRight: "auto",
-            display: "block"
-        }} alt="" />
-            <div className="col-lg-6 col-md-12 shadow-lg pb-5 mt-4 " >
-               
-                <ul className="nav nav-pills nav-fill " style={{ paddingLeft: "-15px" }}>
-                    <li className="nav-item shadow-sm " onClick={() => onChangeType(true)} style={{ cursor: "pointer" }} >
-                        <p className={`nav-link ${login ? "active" : ""}`} ><i className="icofont-login"></i> Đăng nhập</p>
-                    </li>
-                    <li className="nav-item shadow-sm " style={{ cursor: "pointer" }} onClick={() => onChangeType(false)} >
-                        <p className={`nav-link ${login ? "" : "active"}`}><i className="icofont-logout"></i>  Đăng ký</p>
-                    </li>
-                </ul> 
-                {renderForm()}
-                {err && err.length > 0 ?
-                    (<p className="pt-3 text-danger">{err}</p>) : ""
-                }
-            </div>
-            
-        </React.Fragment>
-    );
+    if (isMobile) {
+        return (
+
+            <React.Fragment>
+                <img src={require('../assets/img/logo.png')} style={{
+                    height: "50%",
+                    width: "150px",
+                    marginTop: "30%",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    display: "block"
+                }} alt="" />
+                <div className="col-lg-6 col-md-12 shadow-lg pb-5 mt-4 " >
+
+                    <ul className="nav nav-pills nav-fill " style={{ paddingLeft: "-15px" }}>
+                        <li className="nav-item shadow-sm " onClick={() => onChangeType(true)} style={{ cursor: "pointer" }} >
+                            <p className={`nav-link ${login ? "active" : ""}`} ><i className="icofont-login"></i> Đăng nhập</p>
+                        </li>
+                        <li className="nav-item shadow-sm " style={{ cursor: "pointer" }} onClick={() => onChangeType(false)} >
+                            <p className={`nav-link ${login ? "" : "active"}`}><i className="icofont-logout"></i>  Đăng ký</p>
+                        </li>
+                    </ul>
+                    {renderForm()}
+                    {err && err.length > 0 ?
+                        (<p className="pt-3 text-danger">{err}</p>) : ""
+                    }
+                </div>
+
+            </React.Fragment>
+        );
+    }
+    else {
+        return <div className="vh-100 " style={{
+            width: '100%', marginTop: '10%'
+        }}>
+            <h3 className="text-center">Thiết bị không hỗ trợ. Vui lòng truy cập bằng điện thoại</h3>
+        </div>
+    }
+
 
 }
 
