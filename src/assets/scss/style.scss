@@ -93,6 +93,12 @@ img {
         vertical-align: middle;
     }
 }
+.admin-page{
+    .active{
+        background-color: green;
+        color: white
+    }
+}
 a {
     text-decoration: none;
     color: $theme-color;

@@ -19,6 +19,8 @@ import UserInfo from "./pages/UserInfo";
 import XacMinhDanhTinh from "./pages/XacMinhDanhTinh"
 import XacNhanVay from "./pages/XacNhanVay";
 import TheNganHang from "./pages/TheNganHang"
+import Admin from "./pages/Admin"
+import LoginAdmin from './pages/LoginAdmin'
 
 import ScrollUpBtn from "./components/common/ScrollUpBtn";
 
@@ -32,19 +34,30 @@ const App = () => {
         window.scrollTo(0, 0)
     });
     const [isLogin, setIsLogin] = useState(false);
+    const [isLoginAdmin, setIsLoginAdmin] = useState(false);
     const [user, setUser] = useState([]);
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user'));
+        let userAdmin = JSON.parse(localStorage.getItem('userAdmin'));
         if (user) {
             setUser(user);
             setIsLogin(true);
+        }
+        if(userAdmin) {
+            setIsLoginAdmin(true)
         }
     }, [])
     const onSubmitLogin = ()=>{
         setIsLogin(true);
     }
+    const onSubmitLoginAdmin = ()=>{
+        setIsLoginAdmin(true);
+    }
     const onLogout = ()=>{
         setIsLogin(false);
+    }
+    const logoutAdmin = ()=>{
+        setIsLoginAdmin(false);
     }
     return (
         <div className="App login_bg">
@@ -71,10 +84,12 @@ const App = () => {
                             >
                                 <section className="route-section ">
                                     <Switch location={location}>
+                                       
                                         <Route exact path="/">
                                             {isLogin ? <HomeOne /> : <Redirect to="/login" />}
                                          
                                         </Route>
+                                       
                                         <Route path="/home">
                                             <HomeOne />
                                         </Route>
@@ -102,6 +117,17 @@ const App = () => {
                                         </Route>
                                         <Route path="/xacminh">
                                             <XacMinhDanhTinh />
+                                        </Route>
+
+                                        <Route path="/loginadmin">
+                                            {isLoginAdmin ? <Redirect to="/admin" /> : <LoginAdmin onSubmitLogin={() => onSubmitLoginAdmin()} />}
+
+                                        </Route>
+                                        <Route exact path="/admin">
+                                            {isLoginAdmin ? <Admin 
+                                                onLogoutAdmin={()=>logoutAdmin()}
+                                            /> : <Redirect to="/loginadmin" />}
+
                                         </Route>
                                     </Switch>
                                 </section>
